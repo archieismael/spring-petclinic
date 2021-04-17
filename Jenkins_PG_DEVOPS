@@ -1,0 +1,44 @@
+pipeline {
+        agent {
+            label 'master'
+        }
+        tools {
+            maven 'maven_home'
+            jdk 'java_home'
+        }
+    stages {     
+        stage ('Checkout the code') {
+            steps{
+                git branch: 'main', url: 'https://github.com/archieismael/spring-petclinic.git'
+            }
+        }
+
+        stage ('Code Compile') {
+            steps{
+                sh """
+                mvn compile
+                """
+            }
+        }
+
+	stage ('JUnit Testing') {
+	    steps {
+		sh """
+		mvn test
+		"""
+	    }
+	}
+
+        stage ('Packaging') {
+            steps {
+                sh """
+                mvn package
+                """
+
+            }
+        }
+
+
+      }   
+
+}

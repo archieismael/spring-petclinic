@@ -33,8 +33,13 @@ pipeline {
 
             }
         }
-
+     
 
       }   
 
+        post {
+                always {
+                        junit 'target/surefule-reports/**/*.xml'
+                }
+        }
 }
